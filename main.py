@@ -2,6 +2,7 @@ from settings import *
 import pygame as pg
 import pygame.freetype as ft
 from modules.player import Player
+from modules.floor import Floor
 import sys
 
 class App:
@@ -16,16 +17,18 @@ class App:
 
     def load_modules(self):
         self.player = Player()
+        self.floor = Floor()
 
     def update(self):
         pg.display.flip()
-        self.player.update()
-        self.dt = self.clock.tick() * 0.001
+        self.player.update(self.dt, self.floor.getFloors())
+        self.dt = self.clock.tick(60) / 1000.0
 
     def draw(self):
         self.screen.fill('black')
         self.draw_fps()
         self.player.draw(self.screen)
+        self.floor.draw(self.screen)
 
     def draw_fps(self):
         fps = f'{self.clock.get_fps() :.0f} FPS'
