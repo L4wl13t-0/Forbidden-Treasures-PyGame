@@ -14,8 +14,9 @@ class Player():
         self.is_mine = False
         self.animation_timer = 0
         self.animation_index = 0
-        self.orientation = 1
+        self.orientation = 0
         self.gravity = 250
+        self.spriteMirror = 0
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -25,7 +26,7 @@ class Player():
             floor[int(self.rect.y/TILE_SIZE)][int((self.rect.x/TILE_SIZE))] = 0
             floor[int(self.rect.y/TILE_SIZE+1)][int((self.rect.x/TILE_SIZE))] = 9
             self.rect.y += TILE_SIZE
-            
+
         if self.is_moving:
             if self.orientation == 1:
                 if(floor[int(self.rect.y/TILE_SIZE)][int((self.rect.x/TILE_SIZE)+1)] != 1):
@@ -63,8 +64,14 @@ class Player():
         if event.type == pg.KEYDOWN and event.key == pg.K_d:
             self.is_moving = True
             self.orientation = 1
+            if self.spriteMirror != 1:
+                self.sprites = [pg.transform.flip(sprite, True, False) for sprite in self.sprites]
+                self.spriteMirror = 1
         elif event.type == pg.KEYDOWN and event.key == pg.K_a:
             self.is_moving = True
             self.orientation = 0
+            if self.spriteMirror != 0:
+                self.sprites = [pg.transform.flip(sprite, True, False) for sprite in self.sprites]
+                self.spriteMirror = 0
         elif event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
             self.is_mine = True
