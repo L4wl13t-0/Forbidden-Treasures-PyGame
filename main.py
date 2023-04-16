@@ -14,15 +14,16 @@ class App:
         pg.display.set_caption('Forbidden Treasures PyGame')
         self.dt = 0.0
         self.load_modules()
+        self.floor.printF()
 
     def load_modules(self):
         self.player = Player()
-        self.floor = Floor()
+        self.floor = Floor(19, 13, 1)
 
     def update(self):
         pg.display.flip()
-        self.player.update(self.dt, self.floor.getFloors())
         self.dt = self.clock.tick(60) / 1000.0
+        self.player.update(self.dt, self.floor.getFloors())
 
     def draw(self):
         self.screen.fill('black')
