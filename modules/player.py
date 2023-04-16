@@ -3,7 +3,7 @@ from settings import *
 
 class Player():
     def __init__(self):
-        self.sprites = [pg.image.load(f'assets/sprites/Fire{i}.png').convert_alpha() for i in range(2)]
+        self.sprites = [pg.image.load(f'assets/sprites/playerWalk{i}.png').convert_alpha() for i in range(2)]
         self.scale = self.sprites[0].get_width() * SPRITE_SCALE, self.sprites[0].get_height() * SPRITE_SCALE
         self.sprites = [pg.transform.scale(sprite, self.scale) for sprite in self.sprites]
         self.image = self.sprites[0]

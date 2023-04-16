@@ -23,7 +23,7 @@ class App:
     def update(self):
         pg.display.flip()
         self.dt = self.clock.tick(60) / 1000.0
-        self.player.update(self.dt, self.floor.getFloors())
+        self.player.update(self.floor.getFloors())
 
     def draw(self):
         self.screen.fill('black')
