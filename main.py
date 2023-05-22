@@ -16,6 +16,14 @@ class App:
         self.start_time = 0
         self.game_over = False
         self.menu = True
+        self.score = 0
+    def increase_score(self, amount):
+        self.score += amount
+    def draw_score(self):
+        score_str = f'Score: {self.score}'
+        score_surface, score_rect = self.font.render(score_str, fgcolor='white', bgcolor='black')
+        score_pos = (10, 10)
+        self.screen.blit(score_surface, score_pos)    
 
     def check_events(self):
         for event in pg.event.get():
@@ -67,12 +75,20 @@ class App:
         if self.menu:
             self.draw_menu()
         else:
-            self.screen.fill('black')
-            self.player.draw(self.screen)
-            self.floor.draw(self.screen)
-            self.draw_fps()
-            self.draw_timer()
-            pg.display.flip()
+           self.screen.fill('black')
+           self.player.draw(self.screen)
+           self.floor.draw(self.screen)
+           self.draw_timer()
+           fps_surface, fps_rect = self.font.render(f'{self.clock.get_fps():.0f} FPS', fgcolor='white', bgcolor='black')
+           score_surface, score_rect = self.font.render(f'Score: {self.score}', fgcolor='white', bgcolor='black')
+
+           fps_pos = (10, self.screen.get_height() - fps_rect.height - 10)
+           score_pos = (fps_pos[0] + fps_rect.width + 20, self.screen.get_height() - score_rect.height - 10)
+
+           self.screen.blit(fps_surface, fps_pos)
+           self.screen.blit(score_surface, score_pos)
+
+           pg.display.flip()
 
     def run(self):
         while True:
@@ -100,4 +116,4 @@ class App:
 
 if __name__ == '__main__':
     app = App()
-    app.run()
+    app.run() 
