@@ -54,7 +54,7 @@ class App:
     def draw_timer(self):
         elapsed_time = (pg.time.get_ticks() - self.start_time) // 1000
         remaining_time = max(0, 120 - elapsed_time)
-        time_str = f'Time: {remaining_time}s'
+        time_str = f'Oxigeno: {remaining_time}s'
         time_surface, time_rect = self.font.render(time_str, fgcolor='white', bgcolor='black')
         time_pos = (self.screen.get_width() - time_rect.width - 10, 10)
         self.screen.blit(time_surface, time_pos)
